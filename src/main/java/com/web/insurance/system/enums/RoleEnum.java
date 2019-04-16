@@ -19,4 +19,13 @@ public enum RoleEnum {
     public String getName() {
         return name;
     }
+
+    public static String toName(String id){
+        for (RoleEnum r : RoleEnum.values()) {
+            if(id.equals(r.getId())){
+                return r.getName();
+            }
+        }
+        return null;
+    }
 }

@@ -61,7 +61,7 @@ public class User extends AbstractModel {
     }
 
     public String getRoleVo(){
-        return IEnum.toName(RoleEnum.class,role);
+        return RoleEnum.toName(role);
     }
 
     public void setRole(String role) {

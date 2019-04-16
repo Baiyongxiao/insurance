@@ -28,7 +28,7 @@ public class UserService extends AbstractService {
         map.put("id", String.valueOf(id));
         map.put("role", role);
         map.put("name", name);
-        map.put("permissions", IEnum.toName(RoleEnum.class,role));
+        map.put("permissions", RoleEnum.toName(role));
         return map;
     }
 

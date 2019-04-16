@@ -4,16 +4,15 @@ import com.auth0.jwt.JWT;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
-import com.web.insurance.entity.Product;
-import com.web.insurance.enums.IEnum;
 import com.web.insurance.system.enums.RoleEnum;
 import com.web.insurance.system.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
-
+@Slf4j
 @Service
 public class UserService extends AbstractService {
 
@@ -29,12 +28,14 @@ public class UserService extends AbstractService {
         map.put("role", role);
         map.put("name", name);
         map.put("permissions", RoleEnum.toName(role));
+        log.info("send vue user_role and message:{}",map);
         return map;
     }
 
-    public PageInfo<User> findAllUser(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public PageInfo<User> findAllUser(User user) {
+        PageHelper.startPage(user.getPageNum(),user.getPageSize());
         List<User> users = sqlSession.selectList("user.findAllUser");
+        log.info("findAllUser message:{}",users);
         return new PageInfo<>(users);
     }
 

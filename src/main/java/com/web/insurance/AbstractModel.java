@@ -1,6 +1,5 @@
 package com.web.insurance;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AbstractModel {
@@ -13,11 +12,12 @@ public class AbstractModel {
 
     private String updatedUser;
 
+    private int pageNum;
+
+    private int pageSize;
+
     public Date getCreatedDate() {
         return createdDate;
-    }
-    public String getCreatedDateVo() {
-        return TransformDateFormat(createdDate);
     }
 
     public void setCreatedDate(Date createdDate) {
@@ -26,9 +26,6 @@ public class AbstractModel {
 
     public Date getUpdatedDate() {
         return updatedDate;
-    }
-    public String getUpdatedDateVo() {
-        return TransformDateFormat(updatedDate);
     }
 
     public void setUpdatedDate(Date updatedDate) {
@@ -51,8 +48,31 @@ public class AbstractModel {
         this.updatedUser = updatedUser;
     }
 
-    public String TransformDateFormat(Date date){
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-        return format.format(date);
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractModel{" +
+                "createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
+                ", createdUser='" + createdUser + '\'' +
+                ", updatedUser='" + updatedUser + '\'' +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                '}';
     }
 }

@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
-    <select id="findAllProduct" resultType="product">
+    <select id="findAllProduct" parameterType="map" resultType="product">
         select * from product
+        <where>
+            <if test="classification!=null and classification!=''">
+                AND classification = #{classification}
+            </if>
+            <if test="status!=null and status!=''">
+                AND status = #{status}
+            </if>
+        </where>
     </select>
     <insert id="addProduct" parameterType="map">
         insert into product(classification,name,content,status,created_user)
          value (#{classification},#{name},#{content},#{status},#{createdUser})
     </insert>
+
+    <update id="updatedStatus" parameterType="map">
+        update product set status = #{status},updated_user = #{updatedUser}
+        where id=#{id}
+    </update>
+    <update id="updatedInfo" parameterType="map">
+        update product set
+        classification = #{classification},name = #{name},
+        content = #{content},status = #{status},
+        updated_user = #{updatedUser}
+        where id=#{id}
+    </update>
 </mapper>

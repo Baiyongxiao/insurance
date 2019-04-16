@@ -1,6 +1,9 @@
 package com.web.insurance.entity;
 
 import com.web.insurance.AbstractModel;
+import com.web.insurance.enums.IEnum;
+import com.web.insurance.enums.InsuranceEnum;
+import com.web.insurance.enums.ProductStatusEnum;
 
 /**
  * 进行投票的产品
@@ -13,7 +16,7 @@ public class Product extends AbstractModel {
     /**
      * 保险产品的分类与枚举insurance对应
      */
-    private String classification;
+    private Integer classification;
 
     private String name;
 
@@ -29,11 +32,14 @@ public class Product extends AbstractModel {
         this.id = id;
     }
 
-    public String getClassification() {
+    public Integer getClassification() {
         return classification;
     }
+    public String getClassificationVo() {
+        return IEnum.toName(InsuranceEnum.class,classification);
+    }
 
-    public void setClassification(String classification) {
+    public void setClassification(Integer classification) {
         this.classification = classification;
     }
 
@@ -56,8 +62,22 @@ public class Product extends AbstractModel {
     public int getStatus() {
         return status;
     }
+    public String getStatusVo() {
+        return IEnum.toName(ProductStatusEnum.class, status);
+    }
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", classification='" + classification + '\'' +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

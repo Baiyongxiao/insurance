@@ -91,7 +91,7 @@ public class User extends AbstractModel {
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", role='" + role + '\'' +
                 ", phone='" + phone + '\'' +
                 ", sex='" + sex + '\'' +
                 '}';

@@ -1,17 +1,30 @@
 package com.web.insurance.enums;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * id=0设置为默认，枚举变量不展示
- * Created by wangzg on 2016/7/15.
+ * 枚举接口方便对枚举进行一些操作
+ * @param <E>
  */
 public interface IEnum<E extends Enum<E>> {
 
     public Integer getId();
 
     public String getName();
+
+    static <T extends Enum> List<Map<String, String>> toSelect(Class<T> enumClass){
+        List<Map<String, String>> list = new ArrayList();
+        for (T t : enumClass.getEnumConstants()) {
+            Map<String, String> map = new HashMap();
+            map.put("value", ((IEnum)t).getId().toString());
+            map.put("label", ((IEnum)t).getName());
+            list.add(map);
+        }
+        return list;
+    }
 
     static Map<String, String> toMap(IEnum[] values) {
 

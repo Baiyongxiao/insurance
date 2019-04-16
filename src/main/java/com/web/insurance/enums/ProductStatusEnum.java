@@ -1,18 +1,18 @@
 package com.web.insurance.enums;
 
-public enum ProductStatusEnum {
-    UP(1,"上线"),DOWN(0,"下线");
+public enum ProductStatusEnum implements IEnum {
+    UP(1,"上线"),DOWN(2,"下线");
 
-    private int id;
+    private Integer id;
 
     private String name;
 
-    ProductStatusEnum(int id, String name) {
+    ProductStatusEnum(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

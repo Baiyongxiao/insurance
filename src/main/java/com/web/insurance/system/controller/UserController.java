@@ -5,6 +5,7 @@ import com.web.insurance.annotation.LoginToken;
 import com.web.insurance.system.entity.User;
 import com.web.insurance.system.service.UserService;
 import com.web.insurance.util.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 /**
  * 用户控制器
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -21,19 +23,21 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @GetMapping("/findAllUser")
-    public Object findAllUser(@RequestParam int pageNum,
-                              @RequestParam int pageSize){
-        return userService.findAllUser(pageNum,pageSize);
+    @PostMapping("/findAllUser")
+    public Object findAllUser(@RequestBody User user){
+        log.info("from vue received findAllUser message:{}",user);
+        return userService.findAllUser(user);
     }
 
     @PostMapping("/updateUser")
     public int updateUser(@RequestBody User user){
+        log.info("from vue received updatedUser message:{}",user);
         return userService.updateUser(user);
     }
 
     @GetMapping("/findByUserAccount")
     public User findUserByAccount(@RequestParam String account){
+        log.info("from vue received findOneUser message:{}",account);
         return userService.findByUserAccount(account);
     }
 
@@ -44,11 +48,13 @@ public class UserController {
         User userForBase = userService.findByUserAccount(user.getAccount());
         if (userForBase == null) {
             map.put("message", "登录失败,用户不存在");
+            log.error("登录失败,用户不存在");
             map.put("status", false);
             return map;
         } else {
             if (!userForBase.getPassword().equals(user.getPassword())) {
                 map.put("message", "登录失败,密码错误");
+                log.error("登录失败,密码错误");
                 map.put("status", false);
                 return map;
             } else {
@@ -63,6 +69,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@RequestBody User user){
+        log.info("from vue received register message:{}",user);
         return userService.register(user);
     }
 

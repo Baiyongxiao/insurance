@@ -21,6 +21,12 @@ public class Program extends AbstractModel {
      */
     private String compensate;
 
+    /**
+     * 用户给该方案投的票数
+     * @return
+     */
+    private int ticketCount;
+
     public int getId() {
         return id;
     }
@@ -51,5 +57,24 @@ public class Program extends AbstractModel {
 
     public void setCompensate(String compensate) {
         this.compensate = compensate;
+    }
+
+    public int getTicketCount() {
+        return ticketCount;
+    }
+
+    public void setTicketCount(int ticketCount) {
+        this.ticketCount = ticketCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Program{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", pay='" + pay + '\'' +
+                ", compensate='" + compensate + '\'' +
+                ", ticketCount=" + ticketCount +
+                '}';
     }
 }

@@ -9,15 +9,11 @@ import com.web.insurance.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 @Slf4j
 @Service
 public class UserService extends AbstractService {
-
-    @Resource
-    private GetUserInfoService getUserInfoService;
 
     public Object getRole(String token){
         String role = JWT.decode(token).getClaim("role").asString();

@@ -4,18 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
 import com.web.insurance.entity.Product;
-import com.web.insurance.system.service.GetUserInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class ProductService extends AbstractService {
 
-    @Resource
-    private GetUserInfoService getUserInfoService;
 
     public PageInfo<Product> findAllProduct(Product product) {
         PageHelper.startPage(product.getPageNum(), product.getPageSize());

@@ -8,13 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
 public class ProgramService extends AbstractService {
 
-
+    @Resource
+    private HistoryService historyService;
     /**
      * 通过产品id查询相关的方案
      * @param program
@@ -61,5 +65,22 @@ public class ProgramService extends AbstractService {
     @Transactional
     public int updateCount(int id){
         return sqlSession.update("program.updateCount", id);
+    }
+
+    /**
+     * 用户点击投票页面时判断是否已经投票，并投了哪一个
+     * @param productId
+     * @return
+     */
+    public Object judgeIfVoted(int productId) {
+        Map<String, String> map = new HashMap<>();
+        Map<String, Integer> result = new HashMap<>();
+        map.put("productId", String.valueOf(productId));
+        map.put("account", getUserInfoService.getUserAccount());
+        if(historyService.judgeExist(map)){
+            result.put("showTicket", 1);
+            result.put("programVoId", historyService.getProgramId(map));
+        }
+        return result;
     }
 }

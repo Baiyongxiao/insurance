@@ -35,4 +35,9 @@ public class ProgramController {
         return programService.insertProgram(program);
     }
 
+    @GetMapping("/judgeIfVoted")
+    public Object judgeIfVoted(@RequestParam int productId){
+        return programService.judgeIfVoted(productId);
+    }
+
 }

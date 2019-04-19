@@ -12,6 +12,13 @@
             </if>
         </where>
     </select>
+
+    <select id="findHistory" parameterType="list" resultType="product">
+        select * from product where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
     <insert id="addProduct" parameterType="map">
         insert into product(classification,name,content,status,created_user)
          value (#{classification},#{name},#{content},#{status},#{createdUser})

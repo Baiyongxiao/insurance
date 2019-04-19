@@ -34,6 +34,11 @@ public class UserController {
         log.info("from vue received updatedUser message:{}",user);
         return userService.updateUser(user);
     }
+    @PostMapping("/updateUserInfo")
+    public int updateUserInfo(@RequestBody User user){
+        log.info("from vue received updateUserInfo message:{}",user);
+        return userService.updateUserInfo(user);
+    }
 
     @GetMapping("/findByUserAccount")
     public User findUserByAccount(@RequestParam String account){
@@ -82,5 +87,10 @@ public class UserController {
     @GetMapping("/getRole")
     public Object getRole(String token){
         return userService.getRole(token);
+    }
+
+    @GetMapping("/findUserById")
+    public User findUserById(@RequestParam int id){
+        return userService.findUserById(id);
     }
 }

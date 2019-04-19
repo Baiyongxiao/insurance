@@ -8,6 +8,7 @@ import com.web.insurance.system.enums.RoleEnum;
 import com.web.insurance.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,10 +44,10 @@ public class UserService extends AbstractService {
         return sqlSession.selectOne("user.findByUserAccount",account);
     }
 
+    @Transactional
     public String register(User user) {
         int i = 0;
         try{
-            user.setCreatedUser(getUserInfoService.getUserAccount());
             i = sqlSession.insert("user.register",user);
         }catch (Exception e){
             return "用户名已存在，请重新注册！";
@@ -58,8 +59,25 @@ public class UserService extends AbstractService {
         }
     }
 
+    /**
+     * 管理员更新用户信息
+     * @param user
+     * @return
+     */
+    @Transactional
     public int updateUser(User user) {
         user.setUpdatedUser(getUserInfoService.getUserAccount());
         return sqlSession.update("user.updateUser", user);
+    }
+
+    /**
+     * 用户自己更新信息
+     * @param user
+     * @return
+     */
+    @Transactional
+    public int updateUserInfo(User user) {
+        user.setUpdatedUser(getUserInfoService.getUserAccount());
+        return sqlSession.update("user.updateUserInfo", user);
     }
 }

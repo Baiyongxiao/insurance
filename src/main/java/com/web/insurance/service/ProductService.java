@@ -25,12 +25,21 @@ public class ProductService extends AbstractService {
         return sqlSession.insert("product.addProduct", product);
     }
 
+    @Transactional
     public int updatedStatus(Product product) {
         product.setUpdatedUser(getUserInfoService.getUserAccount());
         return sqlSession.update("product.updatedStatus",product);
     }
+    @Transactional
     public int updatedInfo(Product product) {
         product.setUpdatedUser(getUserInfoService.getUserAccount());
         return sqlSession.update("product.updatedInfo",product);
+    }
+
+    /**
+     * 根据历史记录查询的产品id来批量进行查询
+     */
+    public List<Product> findHistory(List list){
+        return sqlSession.selectList("product.findHistory", list);
     }
 }

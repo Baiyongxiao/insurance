@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="history">
+
+    <select id="findAllHistory" parameterType="map" resultType="history">
+        select * from history where show_status = 1 and account = #{account}
+    </select>
+
+    <select id="judgeExist" parameterType="map" resultType="int">
+        select count(*) from history where product_id = #{productId} and account = #{account}
+    </select>
+    <select id="getProgramId" parameterType="map" resultType="int">
+        select program_id from history where product_id = #{productId} and account = #{account}
+    </select>
+
+    <insert id="voted" parameterType="map">
+        insert into history(product_id,program_id,account,show_status)
+         value (#{productId},#{programId},#{account},1)
+    </insert>
+
+    <update id="deleteHistory" parameterType="map">
+        update history set show_status = 0 where product_id=#{productId} and account = #{account};
+    </update>
+
+</mapper>

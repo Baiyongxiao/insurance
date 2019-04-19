@@ -21,4 +21,9 @@
     <update id="updateUser" parameterType="map">
         update user set role = #{role},updated_user = #{updatedUser} where account=#{account}
     </update>
+
+    <update id="updateUserInfo" parameterType="map">
+        update user set name = #{name},password = #{password},phone = #{phone},sex = #{sex},updated_user = #{updatedUser} where id=#{id}
+    </update>
+
 </mapper>

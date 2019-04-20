@@ -33,6 +33,9 @@ public class GetUserInfoService {
 
     public String getToken(){
         Cookie[] cookie = request.getCookies();
+        if(cookie == null){
+            return null;
+        }
         for (Cookie c : cookie) {
             if(c.getName().equals("token")){
                 return c.getValue();

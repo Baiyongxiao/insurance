@@ -16,14 +16,21 @@ import java.util.List;
 @Service
 public class UserService extends AbstractService {
 
+    /**
+     * 将数据全部放在前台store
+     * @param token
+     * @return
+     */
     public Object getRole(String token){
         String role = JWT.decode(token).getClaim("role").asString();
         String name = JWT.decode(token).getClaim("name").asString();
+        String account = JWT.decode(token).getClaim("account").asString();
         int id = JWT.decode(token).getClaim("id").asInt();
         HashMap<String ,String> map = new HashMap<>();
         map.put("id", String.valueOf(id));
         map.put("role", role);
         map.put("name", name);
+        map.put("account", account);
         map.put("permissions", RoleEnum.toName(role));
         log.info("send vue user_role and message:{}",map);
         return map;
@@ -48,6 +55,7 @@ public class UserService extends AbstractService {
     public String register(User user) {
         int i = 0;
         try{
+            user.setCreatedUser(getUserInfoService.getToken() == null ? null : getUserInfoService.getUserAccount());
             i = sqlSession.insert("user.register",user);
         }catch (Exception e){
             return "用户名已存在，请重新注册！";

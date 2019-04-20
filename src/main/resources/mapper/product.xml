@@ -3,12 +3,15 @@
 <mapper namespace="product">
     <select id="findAllProduct" parameterType="map" resultType="product">
         select * from product
-        <where>
+        <where> 1=1
             <if test="classification!=null and classification!=''">
                 AND classification = #{classification}
             </if>
             <if test="status!=null and status!=''">
                 AND status = #{status}
+            </if>
+            <if test="name!=null and name!=''">
+                AND name like "%"#{name}"%"
             </if>
         </where>
     </select>

@@ -6,11 +6,9 @@ public class Search extends AbstractModel {
 
     private int id;
 
-    private int productId;
-
     private String account;
 
-    private String word;
+    private String value;
 
     public int getId() {
         return id;
@@ -18,14 +16,6 @@ public class Search extends AbstractModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public String getAccount() {
@@ -36,21 +26,20 @@ public class Search extends AbstractModel {
         this.account = account;
     }
 
-    public String getWord() {
-        return word;
+    public String getValue() {
+        return value;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
         return "Search{" +
                 "id=" + id +
-                ", productId=" + productId +
                 ", account='" + account + '\'' +
-                ", word='" + word + '\'' +
+                ", value='" + value + '\'' +
                 '}';
     }
 }

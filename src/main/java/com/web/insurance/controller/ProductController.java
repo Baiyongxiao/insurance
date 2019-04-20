@@ -2,6 +2,7 @@ package com.web.insurance.controller;
 
 import com.web.insurance.entity.Product;
 import com.web.insurance.service.ProductService;
+import com.web.insurance.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,18 @@ public class ProductController {
     @Resource
     private ProductService productService;
 
+    @Resource
+    private SearchService searchService;
+
     @PostMapping("/findAllProduct")
     public Object findAllProduct(@RequestBody Product product){
         log.info("from vue received findAllProduct message:{}",product);
+        String name = product.getName();
+        if (name != null) {
+            if(!searchService.judgeIfExist(name)){
+                searchService.insertInfo(name);
+            }
+        }
         return productService.findAllProduct(product);
     }
 

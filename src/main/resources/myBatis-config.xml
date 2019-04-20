@@ -9,5 +9,7 @@
 			<typeAlias type="com.web.insurance.entity.Product" alias="product" />
 			<typeAlias type="com.web.insurance.entity.Program" alias="program" />
 			<typeAlias type="com.web.insurance.entity.History" alias="history" />
+			<typeAlias type="com.web.insurance.entity.Search" alias="search" />
+			<typeAlias type="com.web.insurance.entity.Comment" alias="comment" />
 	</typeAliases>
 </configuration>

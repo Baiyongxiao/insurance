@@ -1,5 +1,6 @@
 package com.web.insurance;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AbstractModel {
@@ -16,12 +17,20 @@ public class AbstractModel {
 
     private int pageSize;
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getCreatedDateVo() {
+        return createdDate == null ? null : formatTime(createdDate);
     }
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getUpdatedDateVo() {
+        return updatedDate == null ? null : formatTime(updatedDate);
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
     public Date getUpdatedDate() {
@@ -62,6 +71,11 @@ public class AbstractModel {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String formatTime(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
     }
 
     @Override

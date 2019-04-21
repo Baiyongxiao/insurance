@@ -39,7 +39,7 @@ public class ProductService extends AbstractService {
     /**
      * 根据历史记录查询的产品id来批量进行查询
      */
-    public List<Product> findHistory(List list){
+    public List<Product> findHistory(List<Integer> list){
         return sqlSession.selectList("product.findHistory", list);
     }
 }

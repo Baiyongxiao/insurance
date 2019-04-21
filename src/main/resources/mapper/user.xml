@@ -26,4 +26,11 @@
         update user set name = #{name},password = #{password},phone = #{phone},sex = #{sex},updated_user = #{updatedUser} where id=#{id}
     </update>
 
+    <select id="selectVotedUser" parameterType="list" resultType="user">
+        select * from user where account in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

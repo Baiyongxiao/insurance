@@ -5,12 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
 import com.web.insurance.entity.History;
 import com.web.insurance.entity.Product;
+import com.web.insurance.system.entity.User;
+import com.web.insurance.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class HistoryService extends AbstractService {
     @Resource
     private ProgramService programService;
 
+    @Resource
+    private UserService userService;
+
     /**
      * 根据用户账号查询用户所有历史记录
      * @param history
@@ -33,12 +37,8 @@ public class HistoryService extends AbstractService {
     public PageInfo<Product> findAllHistory(History history) {
         PageHelper.startPage(history.getPageNum(), history.getPageSize());
         history.setAccount(getUserInfoService.getUserAccount());
-        List<History> histories = sqlSession.selectList("history.findAllHistory", history);
-        List<Integer> list = new ArrayList<>();
-        for (History h : histories) {
-            list.add(h.getProductId());
-        }
-        List<Product> result = productService.findHistory(list);
+        List<Integer> productIds = sqlSession.selectList("history.findAllHistory", history);
+        List<Product> result = productService.findHistory(productIds);
         return new PageInfo<>(result);
     }
 
@@ -86,5 +86,18 @@ public class HistoryService extends AbstractService {
         map.put("productId", id);
         map.put("account", getUserInfoService.getUserAccount());
         return sqlSession.update("history.deleteHistory",map);
+    }
+
+    /**
+     * 管理员查看投票该方案的用户
+     *
+     * @param history
+     * @return
+     */
+    public PageInfo<User> selectVotedUser(History history) {
+        PageHelper.startPage(history.getPageNum(), history.getPageSize());
+        List<String> accounts = sqlSession.selectList("history.selectVotedUser",history);
+        List<User> result = userService.selectVotedUser(accounts);
+        return new PageInfo<>(result);
     }
 }

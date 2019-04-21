@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
 import com.web.insurance.entity.Program;
+import com.web.insurance.system.entity.User;
+import com.web.insurance.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,9 @@ public class ProgramService extends AbstractService {
 
     @Resource
     private HistoryService historyService;
+
+    @Resource
+    private UserService userService;
     /**
      * 通过产品id查询相关的方案
      * @param program
@@ -83,4 +88,5 @@ public class ProgramService extends AbstractService {
         }
         return result;
     }
+
 }

@@ -88,4 +88,13 @@ public class UserService extends AbstractService {
         user.setUpdatedUser(getUserInfoService.getUserAccount());
         return sqlSession.update("user.updateUserInfo", user);
     }
+
+    /**
+     * 根据大量用户账号批量查询用户信息
+     * @param list
+     * @return
+     */
+    public List<User> selectVotedUser(List<String> list) {
+        return sqlSession.selectList("user.selectVotedUser", list);
+    }
 }

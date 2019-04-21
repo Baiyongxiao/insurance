@@ -30,4 +30,9 @@ public class HistoryController {
     public int deleteHistory(@RequestParam int id){
         return historyService.deleteHistory(id);
     }
+
+    @PostMapping("/selectVotedUser")
+    public Object selectVotedUser(@RequestBody History history){
+        return historyService.selectVotedUser(history);
+    }
 }

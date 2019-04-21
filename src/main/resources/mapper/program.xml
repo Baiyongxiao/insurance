@@ -5,6 +5,7 @@
     <select id="findByProductId" parameterType="map" resultType="program">
         select * from program where product_id=#{productId}
     </select>
+
     <insert id="insertProgram" parameterType="map">
         insert into program(product_id,pay,compensate,created_user)
          value (#{productId},#{pay},#{compensate},#{createdUser})

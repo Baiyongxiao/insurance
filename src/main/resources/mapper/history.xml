@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="history">
 
-    <select id="findAllHistory" parameterType="map" resultType="history">
-        select * from history where show_status = 1 and account = #{account}
+    <select id="findAllHistory" parameterType="map" resultType="int">
+        select product_id from history where show_status = 1 and account = #{account}
     </select>
 
     <select id="judgeExist" parameterType="map" resultType="int">
@@ -21,5 +21,9 @@
     <update id="deleteHistory" parameterType="map">
         update history set show_status = 0 where product_id=#{productId} and account = #{account};
     </update>
+
+    <select id="selectVotedUser" parameterType="map" resultType="String">
+        select account from history where program_id=#{programId}
+    </select>
 
 </mapper>

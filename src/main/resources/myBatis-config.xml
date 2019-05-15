@@ -11,5 +11,6 @@
 			<typeAlias type="com.web.insurance.entity.History" alias="history" />
 			<typeAlias type="com.web.insurance.entity.Search" alias="search" />
 			<typeAlias type="com.web.insurance.entity.Comment" alias="comment" />
+			<typeAlias type="com.web.insurance.entity.Weight" alias="weight" />
 	</typeAliases>
 </configuration>

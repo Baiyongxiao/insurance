@@ -22,6 +22,14 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="filterVote" parameterType="list" resultType="product">
+        select * from product where not id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        and status = 1 ORDER BY count DESC LIMIT 30
+    </select>
     <insert id="addProduct" parameterType="map">
         insert into product(classification,name,content,status,created_user)
          value (#{classification},#{name},#{content},#{status},#{createdUser})
@@ -31,6 +39,10 @@
         update product set status = #{status},updated_user = #{updatedUser}
         where id=#{id}
     </update>
+
+    <update id="addProductCount" parameterType="int">
+        update product set count = count+1 where id=#{id};
+    </update>
     <update id="updatedInfo" parameterType="map">
         update product set
         classification = #{classification},name = #{name},
@@ -38,4 +50,8 @@
         updated_user = #{updatedUser}
         where id=#{id}
     </update>
+
+    <select id="orderByCount" resultType="product">
+        select * from product where status = 1 ORDER BY count DESC
+    </select>
 </mapper>

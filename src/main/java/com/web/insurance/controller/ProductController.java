@@ -55,4 +55,10 @@ public class ProductController {
         log.info("from vue received updatedInfo message:{}",product);
         return productService.updatedInfo(product);
     }
+
+    //TODO 智能推荐
+    @PostMapping("/recommendSearch")
+    public Object recommendSearch(@RequestBody Product product){
+        return productService.recommendSearch(product);
+    }
 }

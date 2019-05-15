@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="weight">
+
+    <insert id="insertWeight" parameterType="String">
+        insert into weight(account)
+         value (#{account})
+    </insert>
+
+    <update id="updatedAddWeight" parameterType="map">
+        update weight
+        <trim prefix="set" suffixOverrides=",">
+            <if test="_parameter.containsKey('car')">
+                car = car+1
+            </if>
+            <if test="_parameter.containsKey('travel')">
+                travel = travel+1
+            </if>
+            <if test="_parameter.containsKey('accident')">
+                accident = accident+1
+            </if>
+            <if test="_parameter.containsKey('healthy')">
+                healthy = healthy+1
+            </if>
+            <if test="_parameter.containsKey('children')">
+                children = children+1
+            </if>
+            <if test="_parameter.containsKey('life')">
+                life = life+1
+            </if>
+            <if test="_parameter.containsKey('illness')">
+                illness = illness+1
+            </if>
+            <if test="_parameter.containsKey('property')">
+                property = property+1
+            </if>
+            <if test="_parameter.containsKey('other')">
+                other = other+1
+            </if>
+
+        </trim>
+         where account = #{account}
+    </update>
+    <update id="updatedDownWeight" parameterType="map">
+        update weight
+        <trim prefix="set" suffixOverrides=",">
+            <if test="_parameter.containsKey('car')">
+                car = car-1
+            </if>
+            <if test="_parameter.containsKey('travel')">
+                travel = travel-1
+            </if>
+            <if test="_parameter.containsKey('accident')">
+                accident = accident-1
+            </if>
+            <if test="_parameter.containsKey('healthy')">
+                healthy = healthy-1
+            </if>
+            <if test="_parameter.containsKey('children')">
+                children = children-1
+            </if>
+            <if test="_parameter.containsKey('life')">
+                life = life-1
+            </if>
+            <if test="_parameter.containsKey('illness')">
+                illness = illness-1
+            </if>
+            <if test="_parameter.containsKey('property')">
+                property = property-1
+            </if>
+            <if test="_parameter.containsKey('other')">
+                other = other-1
+            </if>
+
+        </trim>
+         where account = #{account}
+    </update>
+
+    <select id="findByAccount" parameterType="String" resultType="weight">
+        select * from weight where account = #{account}
+    </select>
+</mapper>

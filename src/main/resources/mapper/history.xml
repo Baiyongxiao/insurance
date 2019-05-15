@@ -14,8 +14,8 @@
     </select>
 
     <insert id="voted" parameterType="map">
-        insert into history(product_id,program_id,account,show_status)
-         value (#{productId},#{programId},#{account},1)
+        insert into history(classification,product_id,program_id,account,show_status)
+         value (#{classification},#{productId},#{programId},#{account},1)
     </insert>
 
     <update id="deleteHistory" parameterType="map">
@@ -24,6 +24,15 @@
 
     <select id="selectVotedUser" parameterType="map" resultType="String">
         select account from history where program_id=#{programId}
+    </select>
+
+    <select id="weight" parameterType="String" resultType="Integer">
+        select classification from history where account = #{account}
+        ORDER BY created_date DESC LIMIT 9,9
+    </select>
+
+    <select id="findByAccount" parameterType="String" resultType="Integer">
+        select product_id from history where account = #{account}
     </select>
 
 </mapper>

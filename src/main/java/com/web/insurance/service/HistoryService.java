@@ -5,6 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
 import com.web.insurance.entity.History;
 import com.web.insurance.entity.Product;
+import com.web.insurance.entity.Weight;
+import com.web.insurance.enums.IEnum;
+import com.web.insurance.enums.InsuranceEnglishEnum;
 import com.web.insurance.system.entity.User;
 import com.web.insurance.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,9 @@ public class HistoryService extends AbstractService {
     @Resource
     private UserService userService;
 
+    @Resource
+    private WeightService weightService;
+
     /**
      * 根据用户账号查询用户所有历史记录
      * @param history
@@ -50,7 +56,27 @@ public class HistoryService extends AbstractService {
     @Transactional
     public int voted(History history) {
         programService.updateCount(history.getProgramId());
-        history.setAccount(getUserInfoService.getUserAccount());
+        String account = getUserInfoService.getUserAccount();
+        history.setAccount(account);
+        //TODO 投票的时候进行权重修改
+        /**
+         * 先进行查询该用户最近的第十条记录的分类
+         */
+        Integer classification = sqlSession.selectOne("history.weight", account);
+        /**
+         * 不等于空则减，等于空直接加
+         */
+        if(classification != null){
+            Map<String, String> map = new HashMap<>();
+            map.put(IEnum.toName(InsuranceEnglishEnum.class, classification), "classification");
+            map.put("account", account);
+            weightService.updatedDownWeight(map);
+        }
+        Map<String, String> map2 = new HashMap<>();
+        map2.put(IEnum.toName(InsuranceEnglishEnum.class, history.getClassification()),"classification");
+        map2.put("account", account);
+        weightService.updatedAddWeight(map2);
+        productService.addProductCount(history.getProductId());
         return sqlSession.insert("history.voted", history);
     }
 
@@ -99,5 +125,9 @@ public class HistoryService extends AbstractService {
         List<String> accounts = sqlSession.selectList("history.selectVotedUser",history);
         List<User> result = userService.selectVotedUser(accounts);
         return new PageInfo<>(result);
+    }
+
+    public List<Integer> findByAccount() {
+        return sqlSession.selectList("history.findByAccount", getUserInfoService.getUserAccount());
     }
 }

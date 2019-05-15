@@ -4,17 +4,22 @@ import com.auth0.jwt.JWT;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web.insurance.AbstractService;
+import com.web.insurance.service.WeightService;
 import com.web.insurance.system.enums.RoleEnum;
 import com.web.insurance.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 @Slf4j
 @Service
 public class UserService extends AbstractService {
+
+    @Resource
+    private WeightService weightService;
 
     /**
      * 将数据全部放在前台store
@@ -61,6 +66,8 @@ public class UserService extends AbstractService {
             return "用户名已存在，请重新注册！";
         }
         if (i == 1) {
+            //TODO 增加权重
+            weightService.insertWeight(user.getAccount());
             return "注册成功，请返回登录！";
         }else{
             return "注册失败请重新注册";

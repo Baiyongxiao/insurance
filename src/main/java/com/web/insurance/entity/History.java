@@ -8,6 +8,8 @@ public class History extends AbstractModel {
 
     private int productId;
 
+    private int classification;
+
     private int programId;
 
     private int showStatus;
@@ -54,11 +56,20 @@ public class History extends AbstractModel {
         this.showStatus = showStatus;
     }
 
+    public int getClassification() {
+        return classification;
+    }
+
+    public void setClassification(int classification) {
+        this.classification = classification;
+    }
+
     @Override
     public String toString() {
         return "History{" +
                 "id=" + id +
                 ", productId=" + productId +
+                ", classification=" + classification +
                 ", programId=" + programId +
                 ", showStatus=" + showStatus +
                 ", account='" + account + '\'' +
